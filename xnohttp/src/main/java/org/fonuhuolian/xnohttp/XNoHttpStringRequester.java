@@ -93,7 +93,7 @@ public class XNoHttpStringRequester {
         }
 
         // 添加请求信息
-        public Builder addRequestParams(String key, String value) {
+        public Builder addRequestParams(String key, Object value) {
 
             if (mXRequestParams == null)
                 mXRequestParams = XRequestParams.create();
