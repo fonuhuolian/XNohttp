@@ -13,8 +13,8 @@ public abstract class XNoHttpSimpleCallBack extends XNoHttpCallBack {
         super(context);
     }
 
-    public XNoHttpSimpleCallBack(Context context, XLoadingDialog XLoadingDialog) {
-        super(context, XLoadingDialog);
+    public XNoHttpSimpleCallBack(Context context, XLoadingBaseDialog XLoadingBaseDialog) {
+        super(context, XLoadingBaseDialog);
     }
 
     @Override

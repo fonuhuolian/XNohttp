@@ -21,7 +21,7 @@ import org.fonuhuolian.xnohttp.utils.XToastUtils;
 public abstract class XNoHttpCallBack implements OnResponseListener<String> {
 
     private Context mContext;
-    private XLoadingDialog mXLoadingDialog;
+    private XLoadingBaseDialog mXLoadingBaseDialog;
 
     // 无Loading
     public XNoHttpCallBack(Context context) {
@@ -29,18 +29,18 @@ public abstract class XNoHttpCallBack implements OnResponseListener<String> {
     }
 
     // 有Loading
-    public XNoHttpCallBack(Context context, XLoadingDialog XLoadingDialog) {
+    public XNoHttpCallBack(Context context, XLoadingBaseDialog XLoadingBaseDialog) {
         this.mContext = context;
-        this.mXLoadingDialog = XLoadingDialog;
-        if (mXLoadingDialog != null)
-            this.mXLoadingDialog.setContext(context);
+        this.mXLoadingBaseDialog = XLoadingBaseDialog;
+        if (mXLoadingBaseDialog != null && context != null)
+            this.mXLoadingBaseDialog.setContext(context);
     }
 
     @Override
     public void onStart(int what) {
 
-        if (mXLoadingDialog != null && !mXLoadingDialog.isShowing())
-            mXLoadingDialog.show();
+        if (mXLoadingBaseDialog != null && !mXLoadingBaseDialog.isShowing())
+            mXLoadingBaseDialog.show();
 
     }
 
@@ -98,8 +98,8 @@ public abstract class XNoHttpCallBack implements OnResponseListener<String> {
     @Override
     public void onFinish(int what) {
 
-        if (mXLoadingDialog != null && mXLoadingDialog.isShowing())
-            mXLoadingDialog.dismiss();
+        if (mXLoadingBaseDialog != null && mXLoadingBaseDialog.isShowing())
+            mXLoadingBaseDialog.dismiss();
     }
 
 

@@ -6,13 +6,16 @@ import android.support.v7.app.AlertDialog;
 import org.fonuhuolian.xnohttp.R;
 
 
-public class LoadingNoCancleDialog {
+public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
 
     private AlertDialog dialog;
-    private Context mContext;
 
-    public LoadingNoCancleDialog(Context context) {
-        this.mContext = context;
+    public XLoadingNoCancleDialog() {
+
+    }
+
+    public XLoadingNoCancleDialog(Context context) {
+        super.mContext = context;
     }
 
     public void show() {
