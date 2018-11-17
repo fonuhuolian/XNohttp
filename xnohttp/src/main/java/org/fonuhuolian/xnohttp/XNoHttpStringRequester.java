@@ -1,5 +1,8 @@
 package org.fonuhuolian.xnohttp;
 
+import android.graphics.Bitmap;
+
+import com.yanzhenjie.nohttp.BitmapBinary;
 import com.yanzhenjie.nohttp.FileBinary;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.Priority;
@@ -8,6 +11,7 @@ import com.yanzhenjie.nohttp.rest.Request;
 
 import org.fonuhuolian.xnohttp.callback.XNoHttpCallBack;
 import org.fonuhuolian.xnohttp.params.XBinaryParams;
+import org.fonuhuolian.xnohttp.params.XBitmapParams;
 import org.fonuhuolian.xnohttp.params.XHeaderParams;
 import org.fonuhuolian.xnohttp.params.XRequestParams;
 import org.json.JSONObject;
@@ -48,6 +52,7 @@ public class XNoHttpStringRequester {
         private XRequestParams mXRequestParams;
         // 文件参数
         private XBinaryParams mXBinaryParams;
+        private XBitmapParams mXBitmapParams;
         // 是否是json请求
         private boolean isJsonRequest = false;
 
@@ -152,6 +157,27 @@ public class XNoHttpStringRequester {
         }
 
 
+        public Builder addBitmapParams(String key, Bitmap bitmapValue, String fileName) {
+
+            if (mXBitmapParams == null)
+                mXBitmapParams = XBitmapParams.create();
+
+            mXBitmapParams.put(key, new BitmapBinary(bitmapValue, fileName));
+
+            return this;
+        }
+
+        public Builder addBitmapParams(XBitmapParams params) {
+
+            if (mXBitmapParams == null)
+                mXBitmapParams = params;
+            else
+                mXBitmapParams.putAll(params.params());
+
+            return this;
+        }
+
+
         /**
          * json请求
          */
@@ -235,6 +261,20 @@ public class XNoHttpStringRequester {
                 for (int i = 0; i < mapList.size(); i++) {
 
                     Map<String, FileBinary> map = mapList.get(i);
+
+                    for (String key : map.keySet()) {
+                        X.mRequest.add(key, map.get(key));
+                    }
+                }
+            }
+
+            if (mXBitmapParams != null && mXBitmapParams.params().size() > 0) {
+
+                List<Map<String, BitmapBinary>> mapList = mXBitmapParams.params();
+
+                for (int i = 0; i < mapList.size(); i++) {
+
+                    Map<String, BitmapBinary> map = mapList.get(i);
 
                     for (String key : map.keySet()) {
                         X.mRequest.add(key, map.get(key));
