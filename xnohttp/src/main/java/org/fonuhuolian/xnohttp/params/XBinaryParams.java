@@ -52,7 +52,7 @@ public class XBinaryParams {
                 Map<String, FileBinary> map = list.get(i);
 
                 for (String key : map.keySet()) {
-                    put(key,map.get(key));
+                    put(key, map.get(key));
                 }
             }
         }

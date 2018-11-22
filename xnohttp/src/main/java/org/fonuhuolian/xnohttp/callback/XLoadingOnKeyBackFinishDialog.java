@@ -1,31 +1,33 @@
 package org.fonuhuolian.xnohttp.callback;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 
 import org.fonuhuolian.xnohttp.R;
 import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
 
-/**
- * 不可点击返回键关闭的对话框
- */
-public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
+public class XLoadingOnKeyBackFinishDialog extends XLoadingBaseDialog implements DialogInterface.OnKeyListener {
 
     private AlertDialog dialog;
 
-    public XLoadingNoCancleDialog() {
+    public XLoadingOnKeyBackFinishDialog() {
 
     }
 
-    public XLoadingNoCancleDialog(Activity context) {
+    public XLoadingOnKeyBackFinishDialog(Activity context) {
         super.mContext = context;
     }
 
+    @Override
     public void show() {
+
 
         if (dialog == null && mContext != null) {
             dialog = new AlertDialog.Builder(mContext, R.style.XDialogNoBackgroundDimStyle).create();
             dialog.setCancelable(false);
+            dialog.setOnKeyListener(this);
         }
 
         if (dialog != null && !dialog.isShowing()) {
@@ -34,14 +36,22 @@ public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
         }
     }
 
-
+    @Override
     public void dismiss() {
-        if (dialog != null && dialog.isShowing() && mContext != null)
+        if (dialog != null && dialog.isShowing())
             dialog.dismiss();
     }
 
-
+    @Override
     public boolean isShowing() {
         return dialog != null && dialog.isShowing();
+    }
+
+    @Override
+    public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+        dialogInterface.dismiss();
+        if (mContext != null)
+            mContext.finish();
+        return false;
     }
 }

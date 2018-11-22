@@ -1,6 +1,6 @@
 package org.fonuhuolian.xnohttp.base;
 
-import android.content.Context;
+import android.app.Activity;
 import android.text.TextUtils;
 
 import com.yanzhenjie.nohttp.error.NetworkError;
@@ -22,20 +22,20 @@ import org.fonuhuolian.xnohttp.R;
  */
 public abstract class XNoHttpBaseCallBack implements OnResponseListener<String> {
 
-    private Context mContext;
+    private Activity mContext;
     private XLoadingBaseDialog mXLoadingBaseDialog;
 
     // 无Loading
-    public XNoHttpBaseCallBack(Context context) {
+    public XNoHttpBaseCallBack(Activity context) {
         this.mContext = context;
     }
 
     // 有Loading
-    public XNoHttpBaseCallBack(Context context, XLoadingBaseDialog XLoadingBaseDialog) {
+    public XNoHttpBaseCallBack(Activity context, XLoadingBaseDialog XLoadingBaseDialog) {
         this.mContext = context;
         this.mXLoadingBaseDialog = XLoadingBaseDialog;
         if (mXLoadingBaseDialog != null && context != null)
-            this.mXLoadingBaseDialog.setContext(context);
+            this.mXLoadingBaseDialog.setActivityContext(context);
     }
 
     @Override
