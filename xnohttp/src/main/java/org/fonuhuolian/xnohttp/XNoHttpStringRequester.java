@@ -10,7 +10,6 @@ import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
 
 import org.fonuhuolian.xnohttp.base.XNoHttpBaseCallBack;
-import org.fonuhuolian.xnohttp.callback.XNoHttpCallBack;
 import org.fonuhuolian.xnohttp.params.XBinaryParams;
 import org.fonuhuolian.xnohttp.params.XBitmapParams;
 import org.fonuhuolian.xnohttp.params.XHeaderParams;
@@ -216,7 +215,7 @@ public class XNoHttpStringRequester {
         /**
          * 添加回调
          */
-        public Builder addResponseListener(XNoHttpCallBack hcb) {
+        public Builder addResponseListener(XNoHttpBaseCallBack hcb) {
             this.hcb = hcb;
             return this;
         }
