@@ -1,4 +1,4 @@
-package org.fonuhuolian.xnohttp.callback;
+package org.fonuhuolian.xnohttp.base;
 
 import android.content.Context;
 

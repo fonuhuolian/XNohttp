@@ -6,4 +6,8 @@
     <string name="x_error_not_found_server">未发现指定服务器，清切换网络后重试。</string>
     <string name="x_error_url_error">URL错误。</string>
     <string name="x_error_unknow">未知错误。</string>
+    <string name="x_error_no_cache">Not found cache!</string>
+    <string name="x_error_sever_error">服务器异常</string>
+    <string name="x_error_storage_read_write_error">内部存储读写发生异常</string>
+    <string name="x_error_storage_not_enough_error">内部存储空间不足</string>
 </resources>

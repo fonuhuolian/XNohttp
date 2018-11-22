@@ -2,6 +2,8 @@ package org.fonuhuolian.xnohttp.callback;
 
 import android.content.Context;
 
+import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
+
 /**
  * 作者： macpro  on 2018/6/17.
  * 邮箱： xxx.com
@@ -18,7 +20,7 @@ public abstract class XNoHttpSimpleCallBack extends XNoHttpCallBack {
     }
 
     @Override
-    public void onFailed() {
+    public void onFailed(int code, String discrbe) {
 
     }
 }

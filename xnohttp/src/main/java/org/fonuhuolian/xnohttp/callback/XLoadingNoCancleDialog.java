@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AlertDialog;
 
 import org.fonuhuolian.xnohttp.R;
+import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
 
 
 public class XLoadingNoCancleDialog extends XLoadingBaseDialog {

@@ -9,6 +9,7 @@ import com.yanzhenjie.nohttp.Priority;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
 
+import org.fonuhuolian.xnohttp.base.XNoHttpBaseCallBack;
 import org.fonuhuolian.xnohttp.callback.XNoHttpCallBack;
 import org.fonuhuolian.xnohttp.params.XBinaryParams;
 import org.fonuhuolian.xnohttp.params.XBitmapParams;
@@ -58,7 +59,7 @@ public class XNoHttpStringRequester {
 
 
         // 监听
-        private XNoHttpCallBack hcb;
+        private XNoHttpBaseCallBack hcb;
 
         public Builder(String httpUrl) {
             X = new XNoHttpStringRequester(httpUrl);
