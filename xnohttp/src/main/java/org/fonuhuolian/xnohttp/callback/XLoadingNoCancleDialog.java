@@ -28,7 +28,7 @@ public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
             dialog.setCancelable(false);
         }
 
-        if (dialog != null && !dialog.isShowing()) {
+        if (dialog != null && !dialog.isShowing() && !mContext.isFinishing()) {
             dialog.show();
             dialog.setContentView(R.layout.xnohttp_waiting_dialog);
         }

@@ -30,7 +30,7 @@ public class XLoadingOnKeyBackFinishDialog extends XLoadingBaseDialog implements
             dialog.setOnKeyListener(this);
         }
 
-        if (dialog != null && !dialog.isShowing()) {
+        if (dialog != null && !dialog.isShowing() && !mContext.isFinishing()) {
             dialog.show();
             dialog.setContentView(R.layout.xnohttp_waiting_dialog);
         }
