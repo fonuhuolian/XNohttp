@@ -58,14 +58,14 @@ public abstract class XNoHttpBaseCallBack implements OnResponseListener<String> 
 
             if (TextUtils.isEmpty(s)) {
                 onFailed(code, "获取服务器数据发生异常");
-                showErrorMsg(code, "获取服务器数据发生异常");
+                showXErrorMsg(code, "获取服务器数据发生异常");
             } else {
                 onSucceed(s);
             }
 
         } else {
             onFailed(code, "连接服务器失败");
-            showErrorMsg(code, "连接服务器失败");
+            showXErrorMsg(code, "连接服务器失败");
         }
 
     }
@@ -100,7 +100,7 @@ public abstract class XNoHttpBaseCallBack implements OnResponseListener<String> 
         }
 
         onFailed(code, errMsg);
-        showErrorMsg(code, errMsg);
+        showXErrorMsg(code, errMsg);
     }
 
     @Override
@@ -115,7 +115,7 @@ public abstract class XNoHttpBaseCallBack implements OnResponseListener<String> 
 
     public abstract void onFailed(int code, String discrbe);
 
-    public void showErrorMsg(int code, String errMsg) {
+    public void showXErrorMsg(int code, String errMsg) {
 
     }
 }

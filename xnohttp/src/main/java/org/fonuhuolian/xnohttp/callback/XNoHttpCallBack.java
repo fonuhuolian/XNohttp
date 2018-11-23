@@ -22,8 +22,12 @@ public abstract class XNoHttpCallBack extends XNoHttpBaseCallBack {
     }
 
     @Override
-    public void showErrorMsg(int code, String errMsg) {
-        super.showErrorMsg(code, errMsg);
-        XToastUtils.getInstance().shortToast(errMsg + " 状态码:" + code);
+    public void showXErrorMsg(int code, String errMsg) {
+        super.showXErrorMsg(code, errMsg);
+
+        if (code == 0)
+            XToastUtils.getInstance().shortToast(errMsg);
+        else
+            XToastUtils.getInstance().shortToast(errMsg + " 状态码:" + code);
     }
 }
