@@ -30,7 +30,7 @@ public class XLoadingOnKeyBackFinishDialog extends XLoadingBaseDialog implements
             dialog.setOnKeyListener(this);
         }
 
-        if (dialog != null && !dialog.isShowing() && !mContext.isFinishing()) {
+        if (dialog != null && !dialog.isShowing() && mContext instanceof Activity && !((Activity) mContext).isFinishing()) {
             dialog.show();
             dialog.setContentView(R.layout.xnohttp_waiting_dialog);
         }
@@ -50,8 +50,8 @@ public class XLoadingOnKeyBackFinishDialog extends XLoadingBaseDialog implements
     @Override
     public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
         dialogInterface.dismiss();
-        if (mContext != null)
-            mContext.finish();
+        if (mContext != null && mContext instanceof Activity)
+            ((Activity) mContext).finish();
         return false;
     }
 }

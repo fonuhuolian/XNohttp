@@ -1,6 +1,6 @@
 package org.fonuhuolian.xnohttp.callback;
 
-import android.app.Activity;
+import android.content.Context;
 
 import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
 import org.fonuhuolian.xnohttp.base.XNoHttpBaseCallBack;
@@ -13,11 +13,11 @@ import org.fonuhuolian.xnohttp.utils.XToastUtils;
 public abstract class XNoHttpCallBack extends XNoHttpBaseCallBack {
 
 
-    public XNoHttpCallBack(Activity context) {
+    public XNoHttpCallBack(Context context) {
         super(context);
     }
 
-    public XNoHttpCallBack(Activity context, XLoadingBaseDialog XLoadingBaseDialog) {
+    public XNoHttpCallBack(Context context, XLoadingBaseDialog XLoadingBaseDialog) {
         super(context, XLoadingBaseDialog);
     }
 

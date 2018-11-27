@@ -1,6 +1,7 @@
 package org.fonuhuolian.xnohttp;
 
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 
 import com.yanzhenjie.nohttp.BitmapBinary;
 import com.yanzhenjie.nohttp.FileBinary;
@@ -131,6 +132,9 @@ public class XNoHttpStringRequester {
             if (mXBinaryParams == null)
                 mXBinaryParams = XBinaryParams.create();
 
+            if (value == null)
+                return this;
+
             mXBinaryParams.put(key, new FileBinary(value));
 
             return this;
@@ -140,6 +144,9 @@ public class XNoHttpStringRequester {
 
             if (mXBinaryParams == null)
                 mXBinaryParams = XBinaryParams.create();
+
+            if (TextUtils.isEmpty(filePathValue))
+                return this;
 
             mXBinaryParams.put(key, new FileBinary(new File(filePathValue)));
 

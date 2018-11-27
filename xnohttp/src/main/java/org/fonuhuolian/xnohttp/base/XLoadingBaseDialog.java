@@ -1,6 +1,6 @@
 package org.fonuhuolian.xnohttp.base;
 
-import android.app.Activity;
+import android.content.Context;
 
 
 /**
@@ -9,9 +9,9 @@ import android.app.Activity;
  */
 public abstract class XLoadingBaseDialog {
 
-    protected Activity mContext;
+    protected Context mContext;
 
-    public void setActivityContext(Activity mContext) {
+    public void setContext(Context mContext) {
         this.mContext = mContext;
     }
 

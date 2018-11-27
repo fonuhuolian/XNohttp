@@ -12,6 +12,7 @@ import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
 public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
 
     private AlertDialog dialog;
+   
 
     public XLoadingNoCancleDialog() {
 
@@ -28,7 +29,7 @@ public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
             dialog.setCancelable(false);
         }
 
-        if (dialog != null && !dialog.isShowing() && !mContext.isFinishing()) {
+        if (dialog != null && !dialog.isShowing() && mContext instanceof Activity && !((Activity) mContext).isFinishing()) {
             dialog.show();
             dialog.setContentView(R.layout.xnohttp_waiting_dialog);
         }
