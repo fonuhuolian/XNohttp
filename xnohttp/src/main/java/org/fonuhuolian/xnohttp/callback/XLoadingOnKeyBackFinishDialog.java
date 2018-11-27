@@ -1,6 +1,7 @@
 package org.fonuhuolian.xnohttp.callback;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
@@ -12,11 +13,17 @@ public class XLoadingOnKeyBackFinishDialog extends XLoadingBaseDialog implements
 
     private AlertDialog dialog;
 
+    /**
+     * 此构造需要配合XNohttp使用
+     */
     public XLoadingOnKeyBackFinishDialog() {
 
     }
 
-    public XLoadingOnKeyBackFinishDialog(Activity context) {
+    /**
+     * 此构造无需要配合XNohttp使用
+     */
+    public XLoadingOnKeyBackFinishDialog(Context context) {
         super.mContext = context;
     }
 

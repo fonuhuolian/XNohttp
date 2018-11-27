@@ -1,6 +1,7 @@
 package org.fonuhuolian.xnohttp.callback;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.app.AlertDialog;
 
 import org.fonuhuolian.xnohttp.R;
@@ -12,13 +13,18 @@ import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
 public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
 
     private AlertDialog dialog;
-   
 
+    /**
+     * 此构造需要配合XNohttp使用
+     */
     public XLoadingNoCancleDialog() {
 
     }
 
-    public XLoadingNoCancleDialog(Activity context) {
+    /**
+     * 此构造无需要配合XNohttp使用
+     */
+    public XLoadingNoCancleDialog(Context context) {
         super.mContext = context;
     }
 
