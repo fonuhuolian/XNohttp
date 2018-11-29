@@ -78,26 +78,27 @@ public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
 
             ImageView imageView = window.findViewById(R.id.img);
             RelativeLayout xGifLayout = window.findViewById(R.id.x_gif_layout);
+            ViewGroup.LayoutParams params = xGifLayout.getLayoutParams();
 
             if (XNohttpServer.getmImageLoader() == null) {
                 throw new RuntimeException("Please call XNohttpServer.setImageLoader(new XNohttpServer.ImageLoader() {}) in Application onCreate()");
             }
 
-            ViewGroup.LayoutParams params = null;
-
             switch (style) {
 
                 case DOUBLE_BALL:
-                    params = new ViewGroup.LayoutParams(dip2px(40), dip2px(40));
-                    xGifLayout.setLayoutParams(params);
+                    params.height = dip2px(38);
+                    params.width = dip2px(38);
                     XNohttpServer.getmImageLoader().onLoadGifImage(mContext, imageView, R.drawable.xnohttp_double_ball);
                     break;
                 case THREE_BALL:
-                    params = new ViewGroup.LayoutParams(dip2px(33), dip2px(33));
-                    xGifLayout.setLayoutParams(params);
+                    params.height = dip2px(40);
+                    params.width = dip2px(40);
                     XNohttpServer.getmImageLoader().onLoadGifImage(mContext, imageView, R.drawable.xnohttp_three_dot);
                     break;
             }
+
+            xGifLayout.setLayoutParams(params);
         }
     }
 
