@@ -91,8 +91,26 @@ public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
 
 
     public void dismiss() {
-        if (dialog != null && dialog.isShowing() && mContext != null)
+        if (dialog != null && dialog.isShowing() && mContext != null) {
+
+            Window window = dialog.getWindow();
+
+            switch (style) {
+                case YOCYCLE:
+                    if (window != null) {
+                        ImageView img = window.findViewById(R.id.img);
+                        img.setImageResource(R.drawable.xnohttp_loading_yo_cicle);
+                    }
+                    break;
+                case YPDOUBLEBALL:
+                    if (window != null) {
+                        ImageView img = window.findViewById(R.id.img);
+                        img.setImageResource(R.drawable.xnohttp_loading_yp_ball);
+                    }
+                    break;
+            }
             dialog.dismiss();
+        }
     }
 
 
