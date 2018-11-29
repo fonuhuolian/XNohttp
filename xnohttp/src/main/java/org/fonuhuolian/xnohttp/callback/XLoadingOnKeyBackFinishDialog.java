@@ -65,11 +65,22 @@ public class XLoadingOnKeyBackFinishDialog extends XLoadingBaseDialog implements
                     break;
                 case YOCYCLE:
                     dialog.setContentView(R.layout.xnohttp_waiting_dialog_yo_cicle);
-                    Window window = dialog.getWindow();
-                    if (window != null) {
-                        ImageView img = window.findViewById(R.id.img);
+                    Window yoWindow = dialog.getWindow();
+                    if (yoWindow != null) {
+                        ImageView img = yoWindow.findViewById(R.id.img);
                         if (XNohttpServer.getmImageLoader() != null)
                             XNohttpServer.getmImageLoader().onLoadGifImage(mContext, img, R.drawable.xnohttp_loading_yo_cicle);
+                        else
+                            throw new RuntimeException("Please call XNohttpServer.setImageLoader(new XNohttpServer.ImageLoader() {}) in Application onCreate()");
+                    }
+                    break;
+                case YPDOUBLEBALL:
+                    dialog.setContentView(R.layout.xnohttp_waiting_dialog_yp_ball);
+                    Window ypWindow = dialog.getWindow();
+                    if (ypWindow != null) {
+                        ImageView img = ypWindow.findViewById(R.id.img);
+                        if (XNohttpServer.getmImageLoader() != null)
+                            XNohttpServer.getmImageLoader().onLoadGifImage(mContext, img, R.drawable.xnohttp_loading_yp_ball);
                         else
                             throw new RuntimeException("Please call XNohttpServer.setImageLoader(new XNohttpServer.ImageLoader() {}) in Application onCreate()");
                     }
