@@ -11,13 +11,15 @@ import org.fonuhuolian.xnohttp.XNohttpServer;
 import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
 import org.fonuhuolian.xnohttp.base.XLoadingStyle;
 
+import static org.fonuhuolian.xnohttp.base.XLoadingStyle.NORMAL;
+
 /**
  * 不可点击返回键关闭的对话框
  */
 public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
 
     private AlertDialog dialog;
-    private XLoadingStyle style = XLoadingStyle.NORMAL;
+    private XLoadingStyle style = NORMAL;
 
     /**
      * 此构造需要配合XNohttp使用
@@ -59,31 +61,32 @@ public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
         if (dialog != null && !dialog.isShowing() && mContext instanceof Activity && !((Activity) mContext).isFinishing()) {
             dialog.show();
 
+            if (style == NORMAL) {
+                dialog.setContentView(R.layout.xnohttp_waiting_dialog);
+                return;
+            }
+
+
+            dialog.setContentView(R.layout.xnohttp_waiting_dialog_gif);
+
+            Window window = dialog.getWindow();
+
+            if (window == null)
+                return;
+
+            ImageView imageView = window.findViewById(R.id.img);
+
+            if (XNohttpServer.getmImageLoader() == null) {
+                throw new RuntimeException("Please call XNohttpServer.setImageLoader(new XNohttpServer.ImageLoader() {}) in Application onCreate()");
+            }
+
             switch (style) {
-                case NORMAL:
-                    dialog.setContentView(R.layout.xnohttp_waiting_dialog);
+
+                case DOUBLE_RING:
+                    XNohttpServer.getmImageLoader().onLoadGifImage(mContext, imageView, R.drawable.xnohttp_double_ring);
                     break;
-                case YOCYCLE:
-                    dialog.setContentView(R.layout.xnohttp_waiting_dialog_yo_cicle);
-                    Window yoWindow = dialog.getWindow();
-                    if (yoWindow != null) {
-                        ImageView img = yoWindow.findViewById(R.id.img);
-                        if (XNohttpServer.getmImageLoader() != null)
-                            XNohttpServer.getmImageLoader().onLoadGifImage(mContext, img, R.drawable.xnohttp_loading_yo_cicle);
-                        else
-                            throw new RuntimeException("Please call XNohttpServer.setImageLoader(new XNohttpServer.ImageLoader() {}) in Application onCreate()");
-                    }
-                    break;
-                case YPDOUBLEBALL:
-                    dialog.setContentView(R.layout.xnohttp_waiting_dialog_yp_ball);
-                    Window ypWindow = dialog.getWindow();
-                    if (ypWindow != null) {
-                        ImageView img = ypWindow.findViewById(R.id.img);
-                        if (XNohttpServer.getmImageLoader() != null)
-                            XNohttpServer.getmImageLoader().onLoadGifImage(mContext, img, R.drawable.xnohttp_loading_yp_ball);
-                        else
-                            throw new RuntimeException("Please call XNohttpServer.setImageLoader(new XNohttpServer.ImageLoader() {}) in Application onCreate()");
-                    }
+                case DOUBLE_BALL:
+                    XNohttpServer.getmImageLoader().onLoadGifImage(mContext, imageView, R.drawable.xnohttp_double_ring);
                     break;
             }
         }
@@ -91,26 +94,8 @@ public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
 
 
     public void dismiss() {
-        if (dialog != null && dialog.isShowing() && mContext != null) {
-
-            Window window = dialog.getWindow();
-
-            switch (style) {
-                case YOCYCLE:
-                    if (window != null) {
-                        ImageView img = window.findViewById(R.id.img);
-                        img.setImageResource(R.drawable.xnohttp_loading_yo_cicle);
-                    }
-                    break;
-                case YPDOUBLEBALL:
-                    if (window != null) {
-                        ImageView img = window.findViewById(R.id.img);
-                        img.setImageResource(R.drawable.xnohttp_loading_yp_ball);
-                    }
-                    break;
-            }
+        if (dialog != null && dialog.isShowing() && mContext != null)
             dialog.dismiss();
-        }
     }
 
 

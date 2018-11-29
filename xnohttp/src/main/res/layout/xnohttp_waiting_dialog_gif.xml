@@ -10,7 +10,6 @@
         android:id="@+id/img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/xnohttp_loading_yo_cicle" />
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
