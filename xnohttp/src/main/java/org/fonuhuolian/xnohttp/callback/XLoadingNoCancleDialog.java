@@ -6,9 +6,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.Window;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-
 import org.fonuhuolian.xnohttp.R;
+import org.fonuhuolian.xnohttp.XNohttpServer;
 import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
 import org.fonuhuolian.xnohttp.base.XLoadingStyle;
 
@@ -69,7 +68,10 @@ public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
                     Window window = dialog.getWindow();
                     if (window != null) {
                         ImageView img = window.findViewById(R.id.img);
-                        Glide.with(mContext).load(R.drawable.xnohttp_loading_yo_cicle).asGif().into(img);
+                        if (XNohttpServer.getmImageLoader() != null)
+                            XNohttpServer.getmImageLoader().onLoadGifImage(mContext, img, R.drawable.xnohttp_loading_yo_cicle);
+                        else
+                            throw new RuntimeException("Please call XNohttpServer.setImageLoader(new XNohttpServer.ImageLoader() {}) in Application onCreate()");
                     }
                     break;
             }

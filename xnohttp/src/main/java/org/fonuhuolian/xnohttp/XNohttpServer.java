@@ -1,5 +1,8 @@
 package org.fonuhuolian.xnohttp;
 
+import android.content.Context;
+import android.widget.ImageView;
+
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.rest.RequestQueue;
 
@@ -15,6 +18,8 @@ public class XNohttpServer {
      * 请求队列。
      */
     private RequestQueue requestQueue;
+
+    private static ImageLoader mImageLoader;
 
     private XNohttpServer() {
         requestQueue = NoHttp.newRequestQueue(3);
@@ -60,5 +65,25 @@ public class XNohttpServer {
 
     public void cancleDownLoadAll() {
         NoHttp.getDownloadQueueInstance().cancelAll();
+    }
+
+
+    public static void setImageLoader(ImageLoader imageLoader) {
+        mImageLoader = imageLoader;
+    }
+
+    public static ImageLoader getmImageLoader() {
+        return mImageLoader;
+    }
+
+    public interface ImageLoader {
+        /**
+         * 需要子类实现该方法，以确定如何加载和显示图片
+         *
+         * @param context   上下文
+         * @param imageView 需要展示图片的ImageView
+         * @param gifResId  gif资源id
+         */
+        void onLoadGifImage(Context context, ImageView imageView, int gifResId);
     }
 }
