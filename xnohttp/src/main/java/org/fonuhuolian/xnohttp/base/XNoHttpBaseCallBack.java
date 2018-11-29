@@ -103,10 +103,11 @@ public abstract class XNoHttpBaseCallBack implements OnResponseListener<String> 
         }
 
         onFailed(code, errMsg);
-        showXErrorMsg(code, errMsg);
 
         if (mXLoadingBaseDialog != null && mXLoadingBaseDialog.isShowing())
             mXLoadingBaseDialog.dismiss();
+
+        showXErrorMsg(code, errMsg);
     }
 
     @Override
