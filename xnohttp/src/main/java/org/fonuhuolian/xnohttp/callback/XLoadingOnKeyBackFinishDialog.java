@@ -87,7 +87,7 @@ public class XLoadingOnKeyBackFinishDialog extends XLoadingBaseDialog implements
                     XNohttpServer.getmImageLoader().onLoadGifImage(mContext, imageView, R.drawable.xnohttp_double_ring);
                     break;
                 case DOUBLE_BALL:
-                    XNohttpServer.getmImageLoader().onLoadGifImage(mContext, imageView, R.drawable.xnohttp_double_ring);
+                    XNohttpServer.getmImageLoader().onLoadGifImage(mContext, imageView, R.drawable.xnohttp_double_ball);
                     break;
             }
         }
