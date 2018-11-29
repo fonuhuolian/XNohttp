@@ -68,6 +68,9 @@ public abstract class XNoHttpBaseCallBack implements OnResponseListener<String> 
             showXErrorMsg(code, "连接服务器失败");
         }
 
+        if (mXLoadingBaseDialog != null && mXLoadingBaseDialog.isShowing())
+            mXLoadingBaseDialog.dismiss();
+
     }
 
     @Override
@@ -101,13 +104,14 @@ public abstract class XNoHttpBaseCallBack implements OnResponseListener<String> 
 
         onFailed(code, errMsg);
         showXErrorMsg(code, errMsg);
+
+        if (mXLoadingBaseDialog != null && mXLoadingBaseDialog.isShowing())
+            mXLoadingBaseDialog.dismiss();
     }
 
     @Override
     public void onFinish(int what) {
 
-        if (mXLoadingBaseDialog != null && mXLoadingBaseDialog.isShowing())
-            mXLoadingBaseDialog.dismiss();
     }
 
 
