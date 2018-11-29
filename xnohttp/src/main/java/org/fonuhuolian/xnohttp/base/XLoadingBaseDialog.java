@@ -23,4 +23,9 @@ public abstract class XLoadingBaseDialog {
 
     // 子类去实现dialog是否正在显示
     public abstract boolean isShowing();
+
+    public int dip2px(float dpValue) {
+        final float scale = mContext.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
 }

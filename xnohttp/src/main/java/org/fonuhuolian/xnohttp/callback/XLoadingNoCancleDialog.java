@@ -3,8 +3,10 @@ package org.fonuhuolian.xnohttp.callback;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import org.fonuhuolian.xnohttp.R;
 import org.fonuhuolian.xnohttp.XNohttpServer;
@@ -75,18 +77,25 @@ public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
                 return;
 
             ImageView imageView = window.findViewById(R.id.img);
+            RelativeLayout xGifLayout = window.findViewById(R.id.x_gif_layout);
 
             if (XNohttpServer.getmImageLoader() == null) {
                 throw new RuntimeException("Please call XNohttpServer.setImageLoader(new XNohttpServer.ImageLoader() {}) in Application onCreate()");
             }
 
+            ViewGroup.LayoutParams params = null;
+
             switch (style) {
 
-                case DOUBLE_RING:
-                    XNohttpServer.getmImageLoader().onLoadGifImage(mContext, imageView, R.drawable.xnohttp_double_ring);
-                    break;
                 case DOUBLE_BALL:
+                    params = new ViewGroup.LayoutParams(dip2px(40), dip2px(40));
+                    xGifLayout.setLayoutParams(params);
                     XNohttpServer.getmImageLoader().onLoadGifImage(mContext, imageView, R.drawable.xnohttp_double_ball);
+                    break;
+                case THREE_BALL:
+                    params = new ViewGroup.LayoutParams(dip2px(33), dip2px(33));
+                    xGifLayout.setLayoutParams(params);
+                    XNohttpServer.getmImageLoader().onLoadGifImage(mContext, imageView, R.drawable.xnohttp_three_dot);
                     break;
             }
         }
