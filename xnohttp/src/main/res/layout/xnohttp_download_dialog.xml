@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="160dp"
+    android:background="@drawable/xnohttp_download_dialog_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <org.fonuhuolian.xnohttp.widget.CircleTextProgressbar
+        android:id="@+id/x_download_progress"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="20dp"
+        android:indeterminateDrawable="@drawable/xnohttp_progress" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="下载中..."
+        android:textColor="#fff"
+        android:textSize="13dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/x_download_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/xnohttp_download_dialog_cancle_bg"
+            android:paddingBottom="7dp"
+            android:paddingLeft="27dp"
+            android:paddingRight="27dp"
+            android:paddingTop="7dp"
+            android:text="取消"
+            android:textColor="#fff"
+            android:textSize="13dp" />
+
+    </FrameLayout>
+
+</LinearLayout>
