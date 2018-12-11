@@ -2,9 +2,9 @@ package org.fonuhuolian.xnohttp.callback;
 
 import android.content.Context;
 
+import org.fonuhuolian.toast.XToastUtils;
 import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
 import org.fonuhuolian.xnohttp.base.XNoHttpBaseCallBack;
-import org.fonuhuolian.xnohttp.utils.XToastUtils;
 
 /**
  * 作者： macpro  on 2018/6/17.
