@@ -17,6 +17,9 @@ import org.fonuhuolian.xnohttp.base.XLoadingStyle;
 
 import static org.fonuhuolian.xnohttp.base.XLoadingStyle.NORMAL;
 
+/**
+ * 可点击关闭页面的对话框
+ */
 public class XLoadingOnKeyBackFinishDialog extends XLoadingBaseDialog implements DialogInterface.OnKeyListener {
 
     private AlertDialog dialog;

@@ -15,6 +15,9 @@ import org.fonuhuolian.xnohttp.R;
 import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
 import org.fonuhuolian.xnohttp.widget.CircleTextProgressbar;
 
+/**
+ * 带下载进度 并可取消的对话框
+ */
 public class XLoadingDownLoadDialog extends XLoadingBaseDialog implements DialogInterface.OnKeyListener {
 
     private AlertDialog dialog;
@@ -121,10 +124,4 @@ public class XLoadingDownLoadDialog extends XLoadingBaseDialog implements Dialog
         return false;
     }
 
-    public interface XDownLoadDialogListener {
-
-        void cancleClick();
-
-        void backClick(DialogInterface dialogInterface);
-    }
 }
