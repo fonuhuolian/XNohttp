@@ -16,6 +16,8 @@ import com.yanzhenjie.nohttp.rest.Response;
 
 import org.fonuhuolian.xnohttp.R;
 
+import java.net.URISyntaxException;
+
 /**
  * 作者： macpro  on 2018/6/17.
  * 邮箱： xxx.com
@@ -98,6 +100,8 @@ public abstract class XNoHttpBaseCallBack implements OnResponseListener<String> 
             errMsg = mContext.getResources().getString(R.string.x_error_not_found_server);
         } else if (exception instanceof URLError) {// URL是错的
             errMsg = mContext.getResources().getString(R.string.x_error_url_error);
+        } else if (exception instanceof URISyntaxException) {
+            errMsg = mContext.getResources().getString(R.string.x_error_uri_syntax);
         } else {
             errMsg = mContext.getResources().getString(R.string.x_error_unknow);
         }
