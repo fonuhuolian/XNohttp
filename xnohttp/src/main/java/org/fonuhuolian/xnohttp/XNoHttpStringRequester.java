@@ -109,7 +109,7 @@ public class XNoHttpStringRequester {
             return this;
         }
 
-        public Builder addRequestParamsList(String key, List<Object> value) {
+        public Builder addRequestParamsList(String key, List<? extends Object> value) {
 
             if (mXRequestParams == null)
                 mXRequestParams = XRequestParams.create();
