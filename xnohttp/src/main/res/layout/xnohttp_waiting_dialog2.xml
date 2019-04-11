@@ -2,8 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="75dp"
-    android:layout_marginLeft="100dp"
-    android:layout_marginRight="100dp"
     android:background="@drawable/xnohttp_waiting_dialog_bg"
     android:gravity="center_vertical"
     android:orientation="horizontal">
@@ -19,9 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginLeft="18dp"
-        android:minWidth="230dp"
+        android:minWidth="150dp"
         android:text="请稍后..."
         android:textColor="#FFF"
-        android:textSize="15dp" />
+        android:textSize="16dp" />
 
 </LinearLayout>
