@@ -14,6 +14,7 @@ import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
 import org.fonuhuolian.xnohttp.base.XLoadingStyle;
 
 import static org.fonuhuolian.xnohttp.base.XLoadingStyle.NORMAL;
+import static org.fonuhuolian.xnohttp.base.XLoadingStyle.NORMAL2;
 
 /**
  * 不可点击返回键关闭的对话框
@@ -68,6 +69,10 @@ public class XLoadingNoCancleDialog extends XLoadingBaseDialog {
                 return;
             }
 
+            if (style == NORMAL2) {
+                dialog.setContentView(R.layout.xnohttp_waiting_dialog2);
+                return;
+            }
 
             dialog.setContentView(R.layout.xnohttp_waiting_dialog_gif);
 

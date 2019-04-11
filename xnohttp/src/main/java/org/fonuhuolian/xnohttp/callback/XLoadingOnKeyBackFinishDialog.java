@@ -16,6 +16,7 @@ import org.fonuhuolian.xnohttp.base.XLoadingBaseDialog;
 import org.fonuhuolian.xnohttp.base.XLoadingStyle;
 
 import static org.fonuhuolian.xnohttp.base.XLoadingStyle.NORMAL;
+import static org.fonuhuolian.xnohttp.base.XLoadingStyle.NORMAL2;
 
 /**
  * 可点击关闭页面的对话框
@@ -69,6 +70,11 @@ public class XLoadingOnKeyBackFinishDialog extends XLoadingBaseDialog implements
 
             if (style == NORMAL) {
                 dialog.setContentView(R.layout.xnohttp_waiting_dialog);
+                return;
+            }
+
+            if (style == NORMAL2) {
+                dialog.setContentView(R.layout.xnohttp_waiting_dialog2);
                 return;
             }
 
