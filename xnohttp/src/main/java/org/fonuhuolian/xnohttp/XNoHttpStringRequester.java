@@ -18,7 +18,6 @@ import org.fonuhuolian.xnohttp.params.XRequestParams;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -47,8 +46,7 @@ public class XNoHttpStringRequester {
         // StringRequest
         private final XNoHttpStringRequester X;
 
-        // 头布局参数
-        private XHeaderParams mXHeaderParams;
+
         // 请求参数
         private XRequestParams mXRequestParams;
         // 文件参数
@@ -73,10 +71,7 @@ public class XNoHttpStringRequester {
         // 添加头信息
         public Builder addHeaderParams(String key, String value) {
 
-            if (mXHeaderParams == null)
-                mXHeaderParams = XHeaderParams.create();
-
-            mXHeaderParams.put(key, value);
+            X.mRequest.addHeader(key, value);
 
             return this;
         }
@@ -84,14 +79,12 @@ public class XNoHttpStringRequester {
 
         public Builder addHeaderParams(XHeaderParams params) {
 
-            if (mXHeaderParams == null) {
-                mXHeaderParams = params;
-            } else {
+            if (params != null) {
 
                 Map<String, String> map = params.params();
 
                 for (String key : map.keySet()) {
-                    mXHeaderParams.put(key, map.get(key));
+                    X.mRequest.addHeader(key, map.get(key));
                 }
             }
 
@@ -247,19 +240,6 @@ public class XNoHttpStringRequester {
 
             if (hcb == null)
                 throw new RuntimeException("must be call addResponseListener() and parameter is not null");
-
-            // 添加header
-            if (mXHeaderParams != null && mXHeaderParams.params().size() > 0) {
-
-                Map<String, String> map = mXHeaderParams.params();
-
-                Iterator<Map.Entry<String, String>> iterator = map.entrySet().iterator();
-
-                while (iterator.hasNext()) {
-                    Map.Entry<String, String> next = iterator.next();
-                    X.mRequest.addHeader(next.getKey(), next.getValue());
-                }
-            }
 
             // json直接拦截
             if (isJsonRequest) {
