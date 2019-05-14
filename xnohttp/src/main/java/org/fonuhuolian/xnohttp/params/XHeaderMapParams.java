@@ -7,25 +7,25 @@ import java.util.Map;
  * 作者： macpro  on 2018/6/17.
  * 邮箱： xxx.com
  */
-public class XHeaderParams {
+public class XHeaderMapParams {
 
     private Map<String, String> map = new HashMap<String, String>();
 
-    private XHeaderParams() {
+    private XHeaderMapParams() {
     }
 
-    public static XHeaderParams create() {
-        return new XHeaderParams();
+    public static XHeaderMapParams create() {
+        return new XHeaderMapParams();
     }
 
-    public static XHeaderParams create(String key, String val) {
-        XHeaderParams hp = new XHeaderParams();
+    public static XHeaderMapParams create(String key, String val) {
+        XHeaderMapParams hp = new XHeaderMapParams();
         hp.map.put(key, val);
         return hp;
     }
 
 
-    public XHeaderParams put(String key, String val) {
+    public XHeaderMapParams put(String key, String val) {
         this.map.put(key, val);
         return this;
     }
