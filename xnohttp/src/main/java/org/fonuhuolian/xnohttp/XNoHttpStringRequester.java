@@ -13,11 +13,12 @@ import com.yanzhenjie.nohttp.rest.Request;
 import org.fonuhuolian.xnohttp.base.XNoHttpBaseCallBack;
 import org.fonuhuolian.xnohttp.params.XBinaryParams;
 import org.fonuhuolian.xnohttp.params.XBitmapParams;
-import org.fonuhuolian.xnohttp.params.XHeaderParams;
-import org.fonuhuolian.xnohttp.params.XRequestParams;
+import org.fonuhuolian.xnohttp.params.XHeaderMapParams;
+import org.fonuhuolian.xnohttp.params.XRequestMapParams;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,8 +48,6 @@ public class XNoHttpStringRequester {
         private final XNoHttpStringRequester X;
 
 
-        // 请求参数
-        private XRequestParams mXRequestParams;
         // 文件参数
         private XBinaryParams mXBinaryParams;
         private XBitmapParams mXBitmapParams;
@@ -77,7 +76,7 @@ public class XNoHttpStringRequester {
         }
 
 
-        public Builder addHeaderParams(XHeaderParams params) {
+        public Builder addHeaderParams(XHeaderMapParams params) {
 
             if (params != null) {
 
@@ -94,39 +93,32 @@ public class XNoHttpStringRequester {
         // 添加请求信息
         public Builder addRequestParams(String key, Object value) {
 
-            if (mXRequestParams == null)
-                mXRequestParams = XRequestParams.create();
+            Map<String, Object> params = new HashMap<>();
+            params.put(key, value);
 
-            mXRequestParams.put(key, value);
+            X.mRequest.add(params);
 
             return this;
         }
 
-        public Builder addRequestParamsList(String key, List<? extends Object> value) {
-
-            if (mXRequestParams == null)
-                mXRequestParams = XRequestParams.create();
+        public Builder addRequestParams(String key, List<? extends Object> value) {
 
             if (value != null && value.size() != 0) {
                 for (int i = 0; i < value.size(); i++) {
-                    mXRequestParams.put(key, value.get(i));
+                    Map<String, Object> params = new HashMap<>();
+                    params.put(key, value.get(i));
+                    X.mRequest.add(params);
                 }
             }
 
             return this;
         }
 
-        public Builder addRequestParams(XRequestParams params) {
+        public Builder addRequestParams(XRequestMapParams params) {
 
-            if (mXRequestParams == null) {
-                mXRequestParams = params;
-            } else {
-
+            if (params != null) {
                 Map<String, Object> map = params.params();
-
-                for (String key : map.keySet()) {
-                    mXRequestParams.put(key, map.get(key));
-                }
+                X.mRequest.add(map);
             }
             return this;
         }
@@ -246,12 +238,6 @@ public class XNoHttpStringRequester {
                 XNohttpServer.getInstance().getRequestQueue().add(what, X.mRequest, hcb);
                 return X;
             }
-
-            if (mXRequestParams == null)
-                mXRequestParams = XRequestParams.create();
-
-            // 添加请求参数
-            X.mRequest.add(mXRequestParams.params());
 
             // 添加文件参数
             if (mXBinaryParams != null && mXBinaryParams.params().size() > 0) {
