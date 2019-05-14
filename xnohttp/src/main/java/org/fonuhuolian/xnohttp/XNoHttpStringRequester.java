@@ -229,7 +229,7 @@ public class XNoHttpStringRequester {
 
             if (hcb == null)
                 throw new RuntimeException("must be call addResponseListener() and parameter is not null");
-            
+
             // 添加到队列
             XNohttpServer.getInstance().getRequestQueue().add(what, X.mRequest, hcb);
 
