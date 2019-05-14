@@ -11,7 +11,6 @@ import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
 
 import org.fonuhuolian.xnohttp.base.XNoHttpBaseCallBack;
-import org.fonuhuolian.xnohttp.params.XBinaryParams;
 import org.fonuhuolian.xnohttp.params.XBitmapParams;
 import org.fonuhuolian.xnohttp.params.XHeaderMapParams;
 import org.fonuhuolian.xnohttp.params.XRequestMapParams;
@@ -49,7 +48,6 @@ public class XNoHttpStringRequester {
 
 
         // 文件参数
-        private XBinaryParams mXBinaryParams;
         private XBitmapParams mXBitmapParams;
         // 是否是json请求
         private boolean isJsonRequest = false;
@@ -101,6 +99,13 @@ public class XNoHttpStringRequester {
             return this;
         }
 
+        public Builder addRequestParams(String key, Map<String, Object> value) {
+
+            X.mRequest.add(value);
+
+            return this;
+        }
+
         public Builder addRequestParams(String key, List<? extends Object> value) {
 
             if (value != null && value.size() != 0) {
@@ -127,40 +132,52 @@ public class XNoHttpStringRequester {
         // 添加文件信息
         public Builder addBinaryParams(String key, File value) {
 
-            if (mXBinaryParams == null)
-                mXBinaryParams = XBinaryParams.create();
-
-            if (value == null)
-                return this;
-
-            mXBinaryParams.put(key, new FileBinary(value));
+            if (value != null && value.exists()) {
+                X.mRequest.add(key, new FileBinary(value));
+            }
 
             return this;
         }
 
         public Builder addBinaryParams(String key, String filePathValue) {
 
-            if (mXBinaryParams == null)
-                mXBinaryParams = XBinaryParams.create();
+            if (!TextUtils.isEmpty(filePathValue)) {
 
-            if (TextUtils.isEmpty(filePathValue))
-                return this;
+                File file = new File(filePathValue);
 
-            mXBinaryParams.put(key, new FileBinary(new File(filePathValue)));
-
-            return this;
-        }
-
-        public Builder addBinaryParams(XBinaryParams params) {
-
-            if (mXBinaryParams == null)
-                mXBinaryParams = params;
-            else
-                mXBinaryParams.putAll(params.params());
+                if (file.exists()) {
+                    X.mRequest.add(key, new FileBinary(file));
+                }
+            }
 
             return this;
         }
 
+        public Builder addBinaryParams(String key, List<String> filePathValues) {
+
+
+            if (filePathValues != null && filePathValues.size() > 0) {
+
+                for (int i = 0; i < filePathValues.size(); i++) {
+                    addBinaryParams(key, filePathValues.get(i));
+                }
+            }
+
+            return this;
+        }
+
+        public Builder addBinaryParams2(String key, List<File> fileValues) {
+
+
+            if (fileValues != null && fileValues.size() > 0) {
+
+                for (int i = 0; i < fileValues.size(); i++) {
+                    addBinaryParams(key, fileValues.get(i));
+                }
+            }
+
+            return this;
+        }
 
         public Builder addBitmapParams(String key, Bitmap bitmapValue, String fileName) {
 
@@ -239,20 +256,6 @@ public class XNoHttpStringRequester {
                 return X;
             }
 
-            // 添加文件参数
-            if (mXBinaryParams != null && mXBinaryParams.params().size() > 0) {
-
-                List<Map<String, FileBinary>> mapList = mXBinaryParams.params();
-
-                for (int i = 0; i < mapList.size(); i++) {
-
-                    Map<String, FileBinary> map = mapList.get(i);
-
-                    for (String key : map.keySet()) {
-                        X.mRequest.add(key, map.get(key));
-                    }
-                }
-            }
 
             if (mXBitmapParams != null && mXBitmapParams.params().size() > 0) {
 
