@@ -11,7 +11,6 @@ import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
 
 import org.fonuhuolian.xnohttp.base.XNoHttpBaseCallBack;
-import org.fonuhuolian.xnohttp.params.XBitmapParams;
 import org.fonuhuolian.xnohttp.params.XHeaderMapParams;
 import org.fonuhuolian.xnohttp.params.XRequestMapParams;
 import org.json.JSONObject;
@@ -45,13 +44,6 @@ public class XNoHttpStringRequester {
 
         // StringRequest
         private final XNoHttpStringRequester X;
-
-
-        // 文件参数
-        private XBitmapParams mXBitmapParams;
-        // 是否是json请求
-        private boolean isJsonRequest = false;
-
 
         // 监听
         private XNoHttpBaseCallBack hcb;
@@ -181,20 +173,10 @@ public class XNoHttpStringRequester {
 
         public Builder addBitmapParams(String key, Bitmap bitmapValue, String fileName) {
 
-            if (mXBitmapParams == null)
-                mXBitmapParams = XBitmapParams.create();
-
-            mXBitmapParams.put(key, new BitmapBinary(bitmapValue, fileName));
-
-            return this;
-        }
-
-        public Builder addBitmapParams(XBitmapParams params) {
-
-            if (mXBitmapParams == null)
-                mXBitmapParams = params;
-            else
-                mXBitmapParams.putAll(params.params());
+            if (bitmapValue != null) {
+                BitmapBinary bitmapBinary = new BitmapBinary(bitmapValue, fileName);
+                X.mRequest.add(key, bitmapBinary);
+            }
 
             return this;
         }
@@ -204,13 +186,11 @@ public class XNoHttpStringRequester {
          * json请求
          */
         public Builder addJsonParams(String jsonObject) {
-            isJsonRequest = true;
             X.mRequest.setDefineRequestBodyForJson(jsonObject); // 传入JSONObject即可。
             return this;
         }
 
         public Builder addJsonParams(JSONObject jsonObject) {
-            isJsonRequest = true;
             X.mRequest.setDefineRequestBodyForJson(jsonObject); // 传入JSONObject即可。
             return this;
         }
@@ -249,28 +229,7 @@ public class XNoHttpStringRequester {
 
             if (hcb == null)
                 throw new RuntimeException("must be call addResponseListener() and parameter is not null");
-
-            // json直接拦截
-            if (isJsonRequest) {
-                XNohttpServer.getInstance().getRequestQueue().add(what, X.mRequest, hcb);
-                return X;
-            }
-
-
-            if (mXBitmapParams != null && mXBitmapParams.params().size() > 0) {
-
-                List<Map<String, BitmapBinary>> mapList = mXBitmapParams.params();
-
-                for (int i = 0; i < mapList.size(); i++) {
-
-                    Map<String, BitmapBinary> map = mapList.get(i);
-
-                    for (String key : map.keySet()) {
-                        X.mRequest.add(key, map.get(key));
-                    }
-                }
-            }
-
+            
             // 添加到队列
             XNohttpServer.getInstance().getRequestQueue().add(what, X.mRequest, hcb);
 
