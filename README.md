@@ -39,9 +39,9 @@ NoHttp.initialize(this); // NoHttp默认初始化。
 ```
 InitializationConfig initializeConfig = 
     InitializationConfig.newBuilder(this)
-    .addHeader() // 添加请求头信息
-    .readTimeout(20 * 1000) // 全局服务器响应超时时间，单位毫秒。
-    .build()
+        .addHeader() // 添加请求头信息
+        .readTimeout(20 * 1000) // 全局服务器响应超时时间，单位毫秒。
+        .build()
 NoHttp.initialize(initializeConfig);
 ```
 初始化gif动画加载
