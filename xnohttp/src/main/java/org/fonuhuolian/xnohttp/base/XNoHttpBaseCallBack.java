@@ -16,6 +16,7 @@ import com.yanzhenjie.nohttp.rest.Response;
 
 import org.fonuhuolian.xnohttp.R;
 
+import java.net.ConnectException;
 import java.net.URISyntaxException;
 
 /**
@@ -102,6 +103,8 @@ public abstract class XNoHttpBaseCallBack implements OnResponseListener<String> 
             errMsg = mContext.getResources().getString(R.string.x_error_url_error);
         } else if (exception instanceof URISyntaxException) {
             errMsg = mContext.getResources().getString(R.string.x_error_uri_syntax);
+        }else if(exception instanceof ConnectException){
+            errMsg = mContext.getResources().getString(R.string.x_error_connection_refused);
         } else {
             errMsg = mContext.getResources().getString(R.string.x_error_unknow);
         }
