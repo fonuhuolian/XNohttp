@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import org.fonuhuolian.toast.XToastUtils;
 import org.fonuhuolian.xnohttp.XNohttpServer;
 
 public class App extends Application {
@@ -20,5 +21,7 @@ public class App extends Application {
                 Glide.with(context).load(gifResId).into(imageView);
             }
         });
+
+        XToastUtils.init(this);
     }
 }

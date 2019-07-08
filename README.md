@@ -16,7 +16,7 @@ allprojects {
 ```
 `module build.gradle `
 ```
-implementation 'com.github.fonuhuolian:XNohttp:1.1.9.2'
+implementation 'com.github.fonuhuolian:XNohttp:1.1.9.3'
 ```
 
 > 混淆
@@ -27,6 +27,12 @@ implementation 'com.github.fonuhuolian:XNohttp:1.1.9.2'
 
 > 用法
 
+在Application#onCreate()中初始化`XToastUtils`
+
+```
+XToastUtils.init(this); // XToastUtils初始化
+
+```
 在Application#onCreate()中初始化`NoHttp`
 
 ```

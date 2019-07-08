@@ -4,7 +4,6 @@ android {
     compileSdkVersion 28
 
 
-
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 28
@@ -32,4 +31,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api 'com.yanzhenjie.nohttp:okhttp:1.1.11'
+    api 'com.yanzhenjie.nohttp:nohttp:1.1.11'
 }
