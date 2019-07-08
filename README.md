@@ -16,7 +16,7 @@ allprojects {
 ```
 `module build.gradle `
 ```
-implementation 'com.github.fonuhuolian:XNohttp:1.1.8'
+implementation 'com.github.fonuhuolian:XNohttp:1.1.9.2'
 ```
 
 > 混淆
