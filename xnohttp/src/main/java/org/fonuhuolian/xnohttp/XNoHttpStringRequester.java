@@ -9,6 +9,7 @@ import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.Priority;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.tools.MultiValueMap;
 
 import org.fonuhuolian.xnohttp.base.XNoHttpBaseCallBack;
 import org.fonuhuolian.xnohttp.params.XHeaderMapParams;
@@ -17,8 +18,10 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 public class XNoHttpStringRequester {
@@ -232,6 +235,53 @@ public class XNoHttpStringRequester {
 
             // 添加到队列
             XNohttpServer.getInstance().getRequestQueue().add(what, X.mRequest, hcb);
+
+            return X;
+        }
+
+        /**
+         * 临时替换全局变量
+         */
+        public XNoHttpStringRequester buildTemporaryReplaceGlobal() {
+
+            if (hcb == null)
+                throw new RuntimeException("must be call addResponseListener() and parameter is not null");
+
+            // 请求参数的值
+            MultiValueMap<String, Object> paramKeyValues = X.mRequest.getParamKeyValues();
+            // 全局参数的值
+            MultiValueMap<String, String> globalParams = NoHttp.getInitializeConfig().getParams();
+            // 存储重复的key
+            Set<String> repeat = new HashSet<String>();
+
+            if ((globalParams != null && globalParams.size() > 0) && (paramKeyValues != null && paramKeyValues.size() > 0)) {
+
+                Set<String> globalKeys = globalParams.keySet();
+                Set<String> paramKeys = paramKeyValues.keySet();
+
+                for (String globalKey : globalKeys) {
+
+                    for (String paramKey : paramKeys) {
+                        if (paramKey.equals(globalKey)) {
+                            repeat.add(paramKey);
+                        }
+                    }
+
+                }
+            }
+
+            // 清空重复
+            for (String s : repeat) {
+                NoHttp.getInitializeConfig().getParams().remove(s);
+            }
+
+            // 添加到队列
+            XNohttpServer.getInstance().getRequestQueue().add(what, X.mRequest, hcb);
+
+            // 恢复重复
+            for (String s : repeat) {
+                NoHttp.getInitializeConfig().getParams().add(s, globalParams.getValues(s));
+            }
 
             return X;
         }
