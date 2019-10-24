@@ -240,23 +240,24 @@ public class XNoHttpStringRequester {
         }
 
         /**
-         * 临时替换全局变量
+         * 临时替换全局参数
+         * 即 全局传参的key与用户传参的key一致 会抹掉全局传参key所对应的value
          */
         public XNoHttpStringRequester buildTemporaryReplaceGlobal() {
 
             if (hcb == null)
                 throw new RuntimeException("must be call addResponseListener() and parameter is not null");
 
-            // 请求参数的值
+            // 请求参数的值(包含全局的以及后传值的)
             MultiValueMap<String, Object> paramKeyValues = X.mRequest.getParamKeyValues();
             // 全局参数的值
-            MultiValueMap<String, String> globalParams = NoHttp.getInitializeConfig().getParams();
+            MultiValueMap<String, String> globalParamsKeyValues = NoHttp.getInitializeConfig().getParams();
             // 存储重复的key
             Set<String> repeat = new HashSet<String>();
 
-            if ((globalParams != null && globalParams.size() > 0) && (paramKeyValues != null && paramKeyValues.size() > 0)) {
+            if ((globalParamsKeyValues != null && globalParamsKeyValues.size() > 0) && (paramKeyValues != null && paramKeyValues.size() > 0)) {
 
-                Set<String> globalKeys = globalParams.keySet();
+                Set<String> globalKeys = globalParamsKeyValues.keySet();
                 Set<String> paramKeys = paramKeyValues.keySet();
 
                 for (String globalKey : globalKeys) {
@@ -272,16 +273,20 @@ public class XNoHttpStringRequester {
 
             // 清空重复
             for (String s : repeat) {
-                NoHttp.getInitializeConfig().getParams().remove(s);
+                // 此key下的全部value并且包含全局的
+                List<Object> paramValues = paramKeyValues.getValues(s);
+                // 此key下的全部全局value
+                List<String> globalValues = globalParamsKeyValues.getValues(s);
+                // 长度不相等，代表除了全局的还有其他的元素
+                if (paramValues.size() != globalValues.size()) {
+                    paramValues.removeAll(globalValues);
+                }
+                X.mRequest.getParamKeyValues().remove(s);
+                X.mRequest.getParamKeyValues().add(s, paramValues);
             }
 
             // 添加到队列
             XNohttpServer.getInstance().getRequestQueue().add(what, X.mRequest, hcb);
-
-            // 恢复重复
-            for (String s : repeat) {
-                NoHttp.getInitializeConfig().getParams().add(s, globalParams.getValues(s));
-            }
 
             return X;
         }
