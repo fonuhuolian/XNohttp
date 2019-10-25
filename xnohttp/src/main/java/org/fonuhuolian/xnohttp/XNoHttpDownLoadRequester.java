@@ -8,6 +8,12 @@ import com.yanzhenjie.nohttp.Priority;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.download.DownloadListener;
 import com.yanzhenjie.nohttp.download.DownloadRequest;
+import com.yanzhenjie.nohttp.tools.MultiValueMap;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 public class XNoHttpDownLoadRequester {
@@ -122,6 +128,61 @@ public class XNoHttpDownLoadRequester {
 
             // 添加到队列
             XNoHttpDownLoadRequester downLoadRequester = new XNoHttpDownLoadRequester(mDownLoadUrl, mRequestMethod, mFileFolder, mFileName, isRange, isDeletOld);
+            NoHttp.getDownloadQueueInstance().add(what,
+                    downLoadRequester.mRequest.setPriority(mPriority).setCancelSign(mCancleSign),
+                    dl);
+
+            return downLoadRequester;
+        }
+
+        /**
+         * 此次请求 清空全部全局参数
+         */
+        public XNoHttpDownLoadRequester buildWithOutGlobalParams() {
+
+            if (TextUtils.isEmpty(mDownLoadUrl))
+                throw new RuntimeException("must be call addDownLoadUrl() and parameter is not null");
+
+            if (dl == null)
+                throw new RuntimeException("must be call addDownLoadListener() and parameter is not null");
+
+            // 添加到队列
+            XNoHttpDownLoadRequester downLoadRequester = new XNoHttpDownLoadRequester(mDownLoadUrl, mRequestMethod, mFileFolder, mFileName, isRange, isDeletOld);
+
+
+            // 请求参数的值(包含全局的以及后传值的)
+            MultiValueMap<String, Object> paramKeyValues = downLoadRequester.mRequest.getParamKeyValues();
+            // 全局参数的值
+            MultiValueMap<String, String> globalParamsKeyValues = NoHttp.getInitializeConfig().getParams();
+
+            if ((globalParamsKeyValues != null && globalParamsKeyValues.size() > 0) && (paramKeyValues != null && paramKeyValues.size() > 0)) {
+
+                Set<String> globalKeys = globalParamsKeyValues.keySet();
+
+                // 循环全局的key
+                for (String globalKey : globalKeys) {
+
+                    if (paramKeyValues.containsKey(globalKey)) {
+                        // 包含 全局 和 临时的值
+                        List<Object> paramsValues = downLoadRequester.mRequest.getParamKeyValues().getValues(globalKey);
+                        List<String> globalValues = globalParamsKeyValues.getValues(globalKey);
+                        paramsValues.removeAll(globalValues);
+
+                        downLoadRequester.mRequest.getParamKeyValues().remove(globalKey);
+
+                        if (paramsValues.size() > 0) {
+
+                            for (int i = 0; i < paramsValues.size(); i++) {
+                                Object o = paramsValues.get(i);
+                                Map<String, Object> params = new HashMap<>();
+                                params.put(globalKey, o);
+                                downLoadRequester.mRequest.add(params);
+                            }
+                        }
+                    }
+                }
+            }
+
             NoHttp.getDownloadQueueInstance().add(what,
                     downLoadRequester.mRequest.setPriority(mPriority).setCancelSign(mCancleSign),
                     dl);
