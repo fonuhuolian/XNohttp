@@ -200,6 +200,41 @@ public class XNoHttpStringRequester {
 
 
         /**
+         * 此次请求 清空全部全局参数
+         */
+        public Builder clearGlobalParamsThisRequest() {
+
+            // 请求参数的值(包含全局的以及后传值的)
+            MultiValueMap<String, Object> paramKeyValues = X.mRequest.getParamKeyValues();
+            // 全局参数的值
+            MultiValueMap<String, String> globalParamsKeyValues = NoHttp.getInitializeConfig().getParams();
+
+            if ((globalParamsKeyValues != null && globalParamsKeyValues.size() > 0) && (paramKeyValues != null && paramKeyValues.size() > 0)) {
+
+                Set<String> globalKeys = globalParamsKeyValues.keySet();
+
+                // 循环全局的key
+                for (String globalKey : globalKeys) {
+
+                    if (paramKeyValues.containsKey(globalKey)) {
+                        // 包含 全局 和 临时的值
+                        List<Object> paramsValues = X.mRequest.getParamKeyValues().getValues(globalKey);
+                        List<String> globalValues = globalParamsKeyValues.getValues(globalKey);
+                        paramsValues.removeAll(globalValues);
+
+                        X.mRequest.getParamKeyValues().remove(globalKey);
+
+                        if (paramsValues.size() > 0) {
+                            addRequestParams(globalKey, paramsValues);
+                        }
+                    }
+                }
+            }
+
+            return this;
+        }
+
+        /**
          * 添加请求等级
          */
         public Builder addPriority(Priority priority) {
@@ -242,6 +277,8 @@ public class XNoHttpStringRequester {
         /**
          * 临时替换全局参数
          * 即 全局传参的key与用户传参的key一致 会抹掉全局传参key所对应的value
+         * 与 clearGlobalParamsThisRequest() 与全局清空是不一样的
+         * 而是 用户传的key的值抹掉全局传的key值
          */
         public XNoHttpStringRequester buildTemporaryReplaceGlobal() {
 
