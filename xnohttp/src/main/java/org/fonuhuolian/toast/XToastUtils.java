@@ -1,6 +1,8 @@
 package org.fonuhuolian.toast;
 
 import android.app.Application;
+import android.content.res.Resources;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 /**
@@ -37,24 +39,38 @@ public class XToastUtils {
 
     public void longToast(String msg) {
         cancle();
+        if (TextUtils.isEmpty(msg))
+            return;
         mToast = Toast.makeText(mContext, msg, Toast.LENGTH_LONG);
         mToast.show();
     }
 
     public void longToast(int stringResMsg) {
         cancle();
+        try {
+            mContext.getResources().getString(stringResMsg);
+        } catch (Resources.NotFoundException e) {
+            return;
+        }
         mToast = Toast.makeText(mContext, stringResMsg, Toast.LENGTH_LONG);
         mToast.show();
     }
 
     public void shortToast(String msg) {
         cancle();
+        if (TextUtils.isEmpty(msg))
+            return;
         mToast = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT);
         mToast.show();
     }
 
     public void shortToast(int stringResMsg) {
         cancle();
+        try {
+            mContext.getResources().getString(stringResMsg);
+        } catch (Resources.NotFoundException e) {
+            return;
+        }
         mToast = Toast.makeText(mContext, stringResMsg, Toast.LENGTH_SHORT);
         mToast.show();
     }

@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/GitHub-XNohttp.iml" filepath="$PROJECT_DIR$/GitHub-XNohttp.iml" group="XNohttp" />
       <module fileurl="file://$PROJECT_DIR$/XNohttp.iml" filepath="$PROJECT_DIR$/XNohttp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/XNohttp-app.iml" filepath="$PROJECT_DIR$/app/XNohttp-app.iml" group="XNohttp/app" />
+      <module fileurl="file://$PROJECT_DIR$/xnohttp/XNohttp-xnohttp.iml" filepath="$PROJECT_DIR$/xnohttp/XNohttp-xnohttp.iml" group="XNohttp/xnohttp" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/xnohttp/xnohttp.iml" filepath="$PROJECT_DIR$/xnohttp/xnohttp.iml" />
     </modules>
